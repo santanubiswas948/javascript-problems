@@ -11,3 +11,22 @@ Function.prototype.myBind = function (thisArg, ...argArray) {
 
   }
 };
+
+
+/**
+
+APPROACH 2:
+
+**/
+
+Function.prototype.myBind = function (thisArg, ...argArray) {
+  const fn = this;
+
+  return function(){
+
+    thisArg.fn = fn;
+    const args =  [...argArray, ...arguments];
+    return thisArg.fn(...args);
+
+  }
+};
