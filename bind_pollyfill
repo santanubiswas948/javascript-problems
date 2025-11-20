@@ -1,0 +1,13 @@
+/**
+Bind method polyfill
+**/
+
+Function.prototype.myBind = function (thisArg, ...argArray) {
+  const fn = this;
+
+  return function(){
+    
+    return fn.apply(thisArg, [...argArray, ...arguments]);
+
+  }
+};
