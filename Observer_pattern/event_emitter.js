@@ -1,6 +1,5 @@
 /**
-In the observer pattern (also commonly known as the publish-subscribe model), we can observe/subscribe to events emitted by publishers and execute code whenever an event happens.
-Implement an EventEmitter class similar to the one in Node.js that follows such an observer pattern.
+Implement EventEmitter class based on Observer Pattern to subscribe/publish events
 **/
 
 export default class EventEmitter {
@@ -8,12 +7,7 @@ export default class EventEmitter {
     this.observers = {};
   }
 
-  /**
-   * @param {string} eventName
-   * @param {Function} listener
-   * @returns {EventEmitter}
-   */
-  on(eventName, listener) {
+  add(eventName, listener) {
     if (eventName in this.observers) {
       this.observers[eventName].push(listener);
     } else {
@@ -22,13 +16,7 @@ export default class EventEmitter {
 
     return this;
   }
-
-  /**
-   * @param {string} eventName
-   * @param {Function} listener
-   * @returns {EventEmitter}
-   */
-  off(eventName, listener) {
+  remove(eventName, listener) {
     if (this.observers.hasOwnProperty(eventName)) {
       const allSameEventWithSameListeners = this.observers[eventName]?.filter(
         (func) => func === listener,
@@ -45,12 +33,7 @@ export default class EventEmitter {
     return this;
   }
 
-  /**
-   * @param {string} eventName
-   * @param  {...any} args
-   * @returns {boolean}
-   */
-  emit(eventName, ...args) {
+  notify(eventName, ...args) {
     if (this.observers.hasOwnProperty(eventName)) {
       this.observers[eventName]?.forEach((func) => func(...args));
       return true;
